@@ -1,0 +1,64 @@
+<!doctype html><html lang="pt-BR"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101321"><title>Missão SNC — Corrida da Cidadania Cultural</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;background:#0b0e18;color:#fff;font-family:system-ui,Segoe UI,sans-serif}button{font:inherit}
+.screen{display:none;min-height:100vh}.on{display:block}
+#home{position:relative;min-height:100vh;background:linear-gradient(90deg,#080a12ee,#080a1280),url("mundo-1-territorio.webp") center/cover}
+.box{position:absolute;left:5vw;top:8vh;max-width:540px;width:90%;padding:25px;background:#0d1120e8;border:3px solid #ffd447;border-radius:22px;box-shadow:0 18px 60px #000}
+.logo{font-size:clamp(48px,9vw,86px);font-weight:1000;line-height:.82;color:#ffd447;text-shadow:5px 5px #111}.logo i{display:block;color:#39c7ff;font-style:normal}
+.btn{display:inline-block;border:2px solid #fff;border-radius:13px;padding:12px 17px;margin:5px;background:#13a84a;color:#fff;font-weight:1000;cursor:pointer}.alt{background:#27314b}
+#map{padding:25px;background:radial-gradient(circle at top,#44305b,#0b0e18 65%)}.grid{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
+.world{padding:0;overflow:hidden;background:#151a29;color:#fff;border:3px solid #fff;border-radius:18px;text-align:left;cursor:pointer;box-shadow:0 10px 28px #0009}.world img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.world strong,.world span{display:block;padding:8px 12px}.world span{padding-top:0;color:#ffd447;font-weight:900}
+#game{position:relative;overflow:hidden;background:#000}#bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}#shade{position:absolute;inset:0;background:linear-gradient(90deg,#0008,transparent 40%,#0003),linear-gradient(0deg,#0008,transparent 28%)}
+.hud{position:absolute;z-index:3;top:12px;left:14px;right:14px;display:flex;justify-content:space-between;gap:8px}.pill,.mission,.dialog,.progress{background:#0b1020e8;border:2px solid #fff;border-radius:13px}.pill{padding:8px 11px;font-weight:1000}
+.mission{position:absolute;z-index:3;right:15px;top:68px;width:min(350px,45vw);padding:12px;border-color:#ffd447}.mission h3{color:#ffd447;margin:0 0 7px}.mission div{margin:5px 0}
+.dialog{display:none;position:absolute;z-index:5;left:50%;bottom:7%;transform:translateX(-50%);width:min(760px,92vw);padding:15px;color:#111;background:#fff;border:4px solid #111;box-shadow:0 12px 40px #000}.dialog.on{display:block}
+.choices{display:grid;gap:8px;margin-top:9px}.choices button{padding:10px;text-align:left;border:2px solid #111;border-radius:10px;background:#ffd447;font-weight:900;cursor:pointer}
+.controls{position:absolute;z-index:4;bottom:16px;left:16px;display:flex;gap:8px}.round{width:62px;height:62px;border-radius:50%;border:3px solid #fff;background:#0b1020dd;color:#fff;font-size:25px;cursor:pointer}
+.progress{position:absolute;z-index:4;bottom:20px;left:50%;transform:translateX(-50%);padding:9px 14px;font-weight:1000;white-space:nowrap}
+.toast{position:absolute;z-index:10;top:22%;left:50%;transform:translateX(-50%);background:#111e;border:2px solid #fff;border-radius:12px;padding:10px 16px;font-weight:1000;opacity:0;transition:.25s}.toast.on{opacity:1}
+#end{padding:12vh 20px;text-align:center;background:linear-gradient(#0007,#000c),url("mundo-6-plano.webp") center/cover}.endbox{max-width:760px;margin:auto;background:#10131de8;border:3px solid #ffd447;border-radius:24px;padding:25px}.medals{font-size:44px;letter-spacing:7px}
+@media(max-width:650px){.mission{width:60vw;font-size:12px}.pill{font-size:11px}.progress{bottom:92px;font-size:11px}.round{width:55px;height:55px}}
+</style></head><body>
+
+<section id="home" class="screen on"><div class="box">
+<div class="logo">MISSÃO<i>SNC</i></div><h2>O videogame da cidadania cultural</h2>
+<p>Uma aventura pelos seis mundos do Sistema Nacional de Cultura.</p>
+<button class="btn" onclick="show('map')">▶ NOVO JOGO</button>
+<button class="btn alt" onclick="movie()">🎬 MODO FILME</button>
+<button class="btn alt" onclick="alert('Setas: explorar. ✦: ação/conversa. No celular, toque nos botões. Modo Filme percorre os seis mundos automaticamente.')">🎮 COMO JOGAR</button>
+</div></section>
+
+<section id="map" class="screen"><h1>🗺️ MAPA DA CAMPANHA</h1><p>Escolha um mundo para começar.</p><div class="grid"><button class="world" onclick="start(0)"><img loading="lazy" src="mundo-1-territorio.webp"><strong>MUNDO 1</strong><span>Território</span></button><button class="world" onclick="start(1)"><img loading="lazy" src="mundo-2-participacao.webp"><strong>MUNDO 2</strong><span>Participação e Controle Social</span></button><button class="world" onclick="start(2)"><img loading="lazy" src="mundo-3-fundo.webp"><strong>MUNDO 3</strong><span>Fundo e Financiamento</span></button><button class="world" onclick="start(3)"><img loading="lazy" src="mundo-4-cultura-viva.webp"><strong>MUNDO 4</strong><span>Cultura Viva</span></button><button class="world" onclick="start(4)"><img loading="lazy" src="mundo-5-direitos.webp"><strong>MUNDO 5</strong><span>Direitos Culturais</span></button><button class="world" onclick="start(5)"><img loading="lazy" src="mundo-6-plano.webp"><strong>MUNDO 6</strong><span>Plano Municipal de Cultura</span></button></div><button class="btn alt" onclick="show('home')">← MENU</button></section>
+
+<section id="game" class="screen"><img id="bg" alt=""><div id="shade"></div>
+<div class="hud"><div class="pill" id="world"></div><div class="pill">❤️ <span id="life">4</span>　⭐ <span id="score">0</span></div></div>
+<div class="mission"><h3>🎯 MISSÃO PRINCIPAL</h3><div id="tasks"></div><div id="eloaBox" style="display:none;margin-top:10px"><button class="btn" style="margin:0;padding:8px 10px" onclick="eloa()">🏠 VISITAR CRECHE ELOÁ</button></div></div>
+<div class="toast" id="toast"></div>
+<div class="dialog" id="dialog"><h2 id="dt"></h2><p id="dx"></p><div class="choices" id="choices"></div></div>
+<div class="controls"><button class="round" onclick="move(-1)">◀</button><button class="round" onclick="action()">✦</button><button class="round" onclick="move(1)">▶</button></div>
+<div class="progress" id="progress"></div></section>
+
+<section id="end" class="screen"><div class="endbox"><h1>🏆 MISSÃO SNC CONCLUÍDA!</h1><div class="medals">🏅🏅🏅🏅🏅🏅</div>
+<h2>Seis mundos. Uma jornada de cidadania cultural.</h2><p id="final"></p><button class="btn" onclick="show('home')">JOGAR NOVAMENTE</button></div></section>
+
+<script>
+const T=['Território', 'Participação e Controle Social', 'Fundo e Financiamento', 'Cultura Viva', 'Direitos Culturais', 'Plano Municipal de Cultura'],M=[['Conheça seu território', 'Converse com agentes culturais', 'Chegue ao fórum do território'], ['Participe da Conferência', 'Converse com o Conselho', 'Leve uma proposta coletiva'], ['Conheça o Fundo de Cultura', 'Participe de uma reunião', 'Acompanhe planejamento e transparência'], ['Visite 3 coletivos culturais', 'Converse com uma mestra ou mestre', 'Participe de uma atividade'], ['Conheça espaços culturais', 'Converse com artistas', 'Apoie uma proposta de inclusão'], ['Participe da plenária', 'Defina metas com o território', 'Conclua o Plano Municipal']],IMG=['mundo-1-territorio.webp', 'mundo-2-participacao.webp', 'mundo-3-fundo.webp', 'mundo-4-cultura-viva.webp', 'mundo-5-direitos.webp', 'mundo-6-plano.webp'];let level=0,pos=0,score=0,life=4,film=false,timer;
+const $=id=>document.getElementById(id);
+function show(id){document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));$(id).classList.add('on')}
+function start(n){film=false;level=n;pos=0;load()}
+function load(){$("bg").src=IMG[level];$("world").textContent="MUNDO "+(level+1)+" • "+T[level];render();show("game");flash("MUNDO "+(level+1)+" — "+T[level])}
+function render(){$("tasks").innerHTML=M[level].map((x,i)=>"<div>"+(i<pos?"☑":"☐")+" "+x+"</div>").join("");$("score").textContent=score;$("life").textContent=life;$("progress").textContent=(level+1)+"/6 • "+T[level];$("eloaBox").style.display=(level===0&&!localStorage.getItem("eloaBadge"))?"block":"none"}
+function flash(t){$("toast").textContent=t;$("toast").classList.add("on");setTimeout(()=>$("toast").classList.remove("on"),1000)}
+function move(d){$("bg").animate([{transform:"scale(1)"},{transform:"scale(1.045) translateX("+(d*-10)+"px)"}],{duration:350,fill:"forwards"});flash(d>0?"Explorando…":"Voltando…")}
+function action(){if(pos<M[level].length){pos++;score+=250;render();flash("+250 • MISSÃO AVANÇOU");if(pos===2)encounter();if(pos>=M[level].length)setTimeout(next,900)}}
+function eloa(){ask("🏠 CRECHE ELOÁ — BOAS PRÁTICAS","Você chegou à Creche Eloá. Carla, diretora e mulher negra com trajetória no campo social, recebe os agentes para uma conversa sobre cuidado, território e boas práticas comunitárias.",[["Conversar com Carla e conhecer a experiência da Creche Eloá","eloa_ok"],["Continuar explorando o território","eloa_later"]])}
+function eloaReward(){$("dialog").classList.remove("on");if(!localStorage.getItem("eloaBadge")){score+=500;life+=1;localStorage.setItem("eloaBadge","1");localStorage.setItem("checkpoint","creche-eloa");render();flash("🏅 +500 • +1 VIDA • INSÍGNIA CUIDADO E TERRITÓRIO");setTimeout(()=>ask("🏅 SALVO-CONDUTO CONQUISTADO","CRECHE ELOÁ — Cuidado e Território. Este ponto passa a funcionar como checkpoint de boas práticas no Mundo 1.",[["CONTINUAR A MISSÃO","close"]]),1200)}}
+function encounter(){let text=level===2?"Um intermediador oferece um atalho individual para acessar recursos.":level===5?"Um atalho promete aprovar o Plano rapidamente, sem participação.":"Surge uma decisão importante para a política cultural do território.";ask("DECISÃO DA MISSÃO",text,[["Seguir planejamento, transparência e participação",true],["Aceitar o atalho individual",false]])}
+function ask(t,x,opts){$("dt").textContent=t;$("dx").textContent=x;$("choices").innerHTML="";opts.forEach(o=>{let b=document.createElement("button");b.textContent=o[0];b.onclick=()=>{if(o[1]==="eloa_ok")eloaReward();else if(o[1]==="eloa_later"||o[1]==="close"){$("dialog").classList.remove("on")}else answer(o[1]);};$("choices").appendChild(b)});$("dialog").classList.add("on")}
+function answer(ok){$("dialog").classList.remove("on");if(ok){score+=500;flash("+500 • DECISÃO COLETIVA")}else{life=Math.max(1,life-1);flash("VIDA -1 • DECISÃO TEM CONSEQUÊNCIA")}render();if(film)setTimeout(filmStep,900)}
+function next(){if(level<5){level++;pos=0;load();if(film)setTimeout(filmStep,1200)}else{$("final").textContent="Pontuação final: "+score+" pontos • 6/6 mundos concluídos.";show("end");film=false}}
+function movie(){film=true;level=0;pos=0;score=0;life=4;load();setTimeout(filmStep,1200)}
+function filmStep(){if(!film||$("dialog").classList.contains("on"))return;if(pos<M[level].length){action();if(!$("dialog").classList.contains("on"))timer=setTimeout(filmStep,1200)}}
+</script></body></html>
