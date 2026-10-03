@@ -1,0 +1,12 @@
+{
+  "name": "Jogo do Sistema Nacional de Cultura",
+  "short_name": "Jogo SNC",
+  "description": "Jogo educativo sobre o Sistema Nacional de Cultura, cidadania, participação e políticas culturais.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#101826",
+  "theme_color": "#101826",
+  "lang": "pt-BR"
+}
