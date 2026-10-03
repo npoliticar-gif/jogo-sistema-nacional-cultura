@@ -30,5 +30,6 @@ $('#new').onclick=()=>{st={char:0,phase:0,score:0,medals:0};charUI();screen('sel
 const focusables=()=>[...document.querySelectorAll('button:not([disabled]):not(.hidden)')].filter(b=>b.offsetParent!==null);
 document.addEventListener('keydown',e=>{if(['Enter','OK'].includes(e.key)&&document.activeElement?.tagName==='BUTTON'){document.activeElement.click();return}if((e.key==='ArrowDown'||e.key==='ArrowUp')&&document.activeElement?.tagName==='BUTTON'&&!$('#gamewrap').classList.contains('hidden'))return;if(['ArrowDown','ArrowUp','ArrowLeft','ArrowRight'].includes(e.key)&&$('#gamewrap').classList.contains('hidden')){let f=focusables(),i=Math.max(0,f.indexOf(document.activeElement));if(e.key==='ArrowDown'||e.key==='ArrowRight')i=(i+1)%f.length;else i=(i-1+f.length)%f.length;f[i]?.focus();e.preventDefault()}});
 let deferredPrompt;const ib=$('#install');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;ib.classList.remove('hidden')});ib.onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;ib.classList.add('hidden')};
+  if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./service-worker.js'); }
 
-</script></body></html>
+</script></body></html> 
