@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Missão SNC — Corrida da Cidadania Cultural</title>
+<meta name="theme-color" content="#07111d">
+<link rel="manifest" href="manifest.json">
+<style>
+:root{--gold:#ffd84f;--ink:#07111d;--panel:#0d2340;--line:#ffffff35;--green:#28b968;--red:#e95d5d;--txt:#fff}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#06101d;color:var(--txt);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+button{font:inherit;color:inherit}.hidden{display:none!important}.app{max-width:1280px;margin:auto;padding:12px}
+.card{border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,#153d70ee,#071a31f5);box-shadow:0 18px 60px #0009;overflow:hidden}
+.center{text-align:center}.btn{border:1px solid #ffffff44;background:#173b68;border-radius:14px;padding:12px 18px;font-weight:1000;cursor:pointer;min-height:50px;box-shadow:0 5px 0 #07111d}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #07111d}.primary{background:linear-gradient(#36d67d,#14924e)}.gold{background:linear-gradient(#ffe96a,#e8a900);color:#172033}
+#sound{position:fixed;right:10px;top:10px;z-index:99;border-radius:999px;background:#07111ddd;border:1px solid var(--gold);padding:10px 14px}
+#home{padding:22px;background:
+radial-gradient(circle at 50% 0,#ffad3744,transparent 35%),
+linear-gradient(180deg,#174c7b,#09192d)}
+.logo{font-size:clamp(52px,10vw,100px);font-weight:1000;line-height:.82;color:#ffd737;text-shadow:0 7px 0 #111,4px 0 #111,-4px 0 #111;transform:rotate(-2deg);margin:30px 0 8px}
+.kicker{font-size:clamp(18px,3vw,30px);font-weight:1000}.tagline{max-width:620px;margin:16px auto;color:#e7edf6;font-size:18px}
+.menu{display:grid;gap:10px;max-width:420px;margin:20px auto}.streetArt{font-size:52px;letter-spacing:10px;margin:18px 0}
+#select{padding:18px}.chars{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.char{padding:9px;border:2px solid #4f7aa6;border-radius:16px;background:#0a1b31;cursor:pointer}.char.sel{border-color:var(--gold);box-shadow:0 0 25px #ffd84f66}.avatar{height:120px;display:grid;place-items:center;font-size:70px;border-radius:12px;background:linear-gradient(145deg,#f7c14a,#9d4b24)}.char b{font-size:18px}.char small{display:block;min-height:38px;color:#d7e4f2}
+.worlds{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:8px 0}.world{padding:8px 4px;border-radius:11px;background:#09172a;border:1px solid #315071;text-align:center;font-size:11px}.world.now{outline:3px solid var(--gold)}.world.done{background:#155234}
+.hud{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:10px 14px;background:#050d18;border-bottom:2px solid #e4b829}.phase{font-size:clamp(20px,4vw,35px);font-weight:1000}.stats{font-weight:1000}
+.stage{position:relative;height:min(62vh,590px);min-height:390px;overflow:hidden;touch-action:none;background:linear-gradient(#6bcaf0 0 55%,#78ad44 55% 69%,#48484b 69% 90%,#66a33d 90%)}
+.skyline,.houses,.roadmarks{position:absolute;left:0;top:0;height:100%;width:300%;will-change:transform}
+.skyline{opacity:.48;background:
+linear-gradient(90deg,transparent 0 3%,#36556a 3% 7%,transparent 7% 10%,#28465e 10% 15%,transparent 15% 20%,#456177 20% 25%,transparent 25% 30%);clip-path:polygon(0 50%,4% 32%,8% 50%,12% 24%,16% 50%,22% 35%,27% 50%,32% 20%,37% 50%,43% 30%,48% 50%,55% 25%,60% 50%,68% 33%,74% 50%,82% 23%,88% 50%,100% 34%,100% 58%,0 58%)}
+.houses{top:42%;height:28%;font-size:80px;white-space:nowrap;opacity:.95}
+.road{position:absolute;left:0;right:0;bottom:10%;height:21%;background:#3e4148;border-block:5px solid #ddd}.road:after{content:"";position:absolute;left:0;right:0;top:50%;border-top:5px dashed #f6e8a4}
+.hero{position:absolute;left:13%;bottom:27%;width:78px;height:96px;z-index:20;display:grid;place-items:center;font-size:70px;filter:drop-shadow(0 8px 5px #0008);transition:bottom .12s}.hero.run{animation:run .26s infinite alternate}.hero.jump{bottom:54%;animation:none}.hero.hurt{animation:hurt .25s 2}
+.obj{position:absolute;bottom:27%;z-index:15;font-size:48px;filter:drop-shadow(0 6px 4px #0007)}.obj.good{animation:bob .8s infinite alternate}.obj.bad{font-size:54px}.obj.done{opacity:.12}.tag{position:absolute;bottom:43%;width:125px;transform:translateX(-40px);padding:5px;background:#fff;color:#12243a;border-radius:8px;font-size:11px;font-weight:1000;text-align:center}
+.finish{position:absolute;bottom:23%;font-size:75px;z-index:12}
+.progress{height:10px;background:#08111d}.progress>div{height:100%;background:linear-gradient(90deg,#ffe05c,#fff6ae);width:0}
+.msg{padding:10px 14px;min-height:44px;background:#07111d;font-weight:800}
+.quiz{position:absolute;z-index:50;left:50%;top:50%;transform:translate(-50%,-50%);width:min(92%,700px);padding:16px;border:3px solid var(--gold);border-radius:20px;background:#07172cf5;box-shadow:0 20px 80px #000}.answer{display:block;width:100%;text-align:left;margin-top:8px}
+.pop{position:absolute;z-index:60;left:50%;top:15%;transform:translateX(-50%);background:#fff;color:#10233b;border:3px solid #111;border-radius:13px;padding:9px 15px;font-size:20px;font-weight:1000;animation:pop .22s}
+.controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:10px;background:#07111d}.control{font-size:24px;min-height:62px}
+.end{padding:35px}.medals{font-size:48px}
+@keyframes bob{to{transform:translateY(-8px)}}@keyframes run{to{transform:translateY(-4px) rotate(-2deg)}}@keyframes hurt{50%{transform:translateX(-15px);filter:drop-shadow(0 0 15px red)}}@keyframes pop{from{transform:translateX(-50%) scale(.65);opacity:0}}
+@media(max-width:700px){.chars{grid-template-columns:repeat(2,1fr)}.worlds{grid-template-columns:repeat(3,1fr)}.stage{height:410px}.obj{font-size:38px}.tag{width:90px;font-size:9px}.hero{width:62px;font-size:58px}.houses{font-size:58px}}
+@media(min-width:1000px){.control{font-size:28px}.tag{font-size:13px}.world{font-size:14px}}
+</style>
+
+<style id="modern-fx-v2">
+.stage{perspective:900px;isolation:isolate}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:45;
+ background:linear-gradient(110deg,transparent 0 42%,#ffffff12 49%,transparent 56%);
+ transform:translateX(-120%);animation:stageShine 8s linear infinite}
+.hero{transform-origin:50% 100%;will-change:transform,bottom;transition:bottom .11s cubic-bezier(.2,.8,.3,1)}
+.hero.run{animation:runModern .22s infinite alternate}
+.hero.jump{animation:jumpFX .52s cubic-bezier(.2,.7,.25,1)}
+.obj{will-change:transform;transition:filter .15s,opacity .2s}
+.obj.good{animation:collectible 1s ease-in-out infinite alternate}
+.obj.bad{animation:dangerPulse .7s ease-in-out infinite alternate}
+.world.now{animation:worldGlow 1.2s ease-in-out infinite alternate}
+#speedlines{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:0;
+ background:repeating-linear-gradient(100deg,transparent 0 52px,#ffffff18 53px 55px,transparent 56px 105px);
+ transform:translateX(-15%);transition:opacity .2s}
+.stage.fast #speedlines{opacity:.42;animation:speedLines .45s linear infinite}
+#particles{position:absolute;inset:0;z-index:42;pointer-events:none;overflow:hidden}
+.particle{position:absolute;font-size:22px;animation:particleFly .72s ease-out forwards}
+#combo{position:absolute;right:18px;top:18px;z-index:46;font-weight:1000;font-size:20px;
+ color:#fff5a6;text-shadow:0 3px 0 #000,0 0 18px #ffd84f;opacity:0;transform:scale(.7)}
+#combo.show{animation:comboPop .75s}
+#dash{position:absolute;left:5%;bottom:15%;z-index:46;font-size:12px;font-weight:900;
+ background:#07111dcc;border:1px solid #ffffff44;border-radius:999px;padding:6px 10px}
+.screenflash{animation:screenFlash .22s}
+.shake{animation:screenShake .25s}
+@keyframes stageShine{to{transform:translateX(120%)}}
+@keyframes runModern{from{transform:translateY(0) rotate(-2deg) scaleX(.98)}to{transform:translateY(-6px) rotate(2deg) scaleX(1.03)}}
+@keyframes jumpFX{0%{transform:rotate(0) scale(1)}45%{transform:rotate(-8deg) scale(1.08)}100%{transform:rotate(0) scale(1)}}
+@keyframes collectible{to{transform:translateY(-10px) scale(1.08);filter:drop-shadow(0 0 13px #ffe56b)}}
+@keyframes dangerPulse{to{transform:scale(1.08);filter:drop-shadow(0 0 12px #ff4d4d)}}
+@keyframes worldGlow{to{box-shadow:0 0 24px #ffd84f99,inset 0 0 14px #ffd84f44}}
+@keyframes speedLines{to{transform:translateX(8%)}}
+@keyframes particleFly{to{transform:translate(var(--dx),var(--dy)) rotate(220deg) scale(.35);opacity:0}}
+@keyframes comboPop{0%{opacity:0;transform:scale(.5)}25%{opacity:1;transform:scale(1.2)}75%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.8)}}
+@keyframes screenFlash{50%{filter:brightness(1.45) saturate(1.35)}}
+@keyframes screenShake{25%{transform:translateX(-7px)}50%{transform:translateX(7px)}75%{transform:translateX(-4px)}}
+</style>
+
+</head>
+<body>
+<button id="sound">🔊 SOM</button>
+<main class="app">
+<section id="home" class="card center">
+  <div class="logo">MISSÃO<br>SNC</div>
+  <div class="kicker">O VIDEOGAME DA POLÍTICA CULTURAL</div>
+  <div class="streetArt">🏘️ 🥁 📚 🏛️</div>
+  <p class="tagline">Cultura é direito. Cidadania é participação. Percorra os 6 mundos e fortaleça a cultura no território.</p>
+  <div class="menu">
+    <button class="btn primary" id="new">▶ NOVO JOGO</button>
+    <button class="btn" id="cont">♟ CONTINUAR</button>
+    <button class="btn" id="choose">👥 ESCOLHER PERSONAGEM</button>
+    <button class="btn" id="how">🎮 COMO JOGAR</button>
+  </div>
+  <p id="howtxt" class="hidden">➡️ Corra • ⬅️ volte • ⬆️ pule obstáculos. Colete ferramentas de cidadania, responda às perguntas e conquiste as 6 insígnias. No celular use os botões; no computador/TV use as setas e Enter.</p>
+</section>
+
+<section id="select" class="card hidden">
+ <h1>Escolha seu personagem</h1><p>Diferentes caminhos, uma mesma missão: fortalecer a cultura no território.</p>
+ <div id="chars" class="chars"></div>
+ <p class="center"><button id="go" class="btn primary">COMEÇAR CAMPANHA ▶</button></p>
+</section>
+
+<section id="game" class="card hidden">
+ <div class="hud"><div><small>MISSÃO SNC</small><div id="phase" class="phase"></div></div><div class="stats">❤️ <span id="life">3</span> &nbsp; ⭐ <span id="score">0</span> &nbsp; 🏅 <span id="medals">0</span>/6</div></div>
+ <div id="worlds" class="worlds"></div><div class="progress"><div id="bar"></div></div>
+ <div id="stage" class="stage" tabindex="0">
+   <div id="speedlines"></div><div id="particles"></div><div id="combo"></div><div id="dash">⚡ IMPULSO</div><div id="skyline" class="skyline"></div><div id="houses" class="houses">🏠🏘️🏢🌳🏠🎨🏘️🌳🏫🏠🥁🏘️📚🌳🏛️🏠🎭🏘️🌳🏢</div><div class="road"></div>
+   <div id="objects"></div><div id="hero" class="hero">🧑🏾</div><div id="pop" class="pop hidden"></div>
+   <div id="quiz" class="quiz hidden"><h2>🧠 Posto da Cidadania</h2><p id="qtext"></p><div id="answers"></div></div>
+ </div>
+ <div id="msg" class="msg">Prepare-se.</div>
+ <div class="controls"><button id="left" class="btn control">⬅️</button><button id="jump" class="btn gold control">⬆️ PULAR</button><button id="right" class="btn control">➡️</button></div>
+ <div style="padding:10px;text-align:center"><button id="menu" class="btn">☰ MENU</button></div>
+</section>
+
+<section id="end" class="card center end hidden"><div style="font-size:70px">🏆</div><h1>MISSÃO SNC CONCLUÍDA!</h1><p>Cultura é direito. Cidadania é participação. Política pública se constrói coletivamente.</p><div class="medals">🏅🏅🏅🏅🏅🏅</div><p>Pontuação: <b id="finalScore"></b></p><button id="again" class="btn primary">JOGAR NOVAMENTE</button></section>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+const chars=[
+ ['Neri','Território, articulação e comunidade','🧔🏾'],
+ ['Ana','Arte, educação e cultura popular','👩🏾‍🦱'],
+ ['João','Juventude e mobilização','🧑🏾‍🦱'],
+ ['Lívia','Cultura Viva e redes','👩🏽'],
+ ['Rafa','Música, tecnologia e informação','🧔🏽']
+];
+const phases=[
+ {t:'1 • TERRITÓRIO: RAÍZES DA CULTURA',icon:'📍',items:[[18,'🏠','Ponto de Cultura','g'],[31,'⭐','Cidadania','g'],[44,'🛑','Política de balcão','b'],[57,'📚','Biblioteca comunitária','g'],[70,'⚠️','Compadrio','b'],[83,'🥁','Território Vivo','t']],q:['O que fortalece a vida cultural do território?',['Reconhecer e apoiar iniciativas culturais locais','Ignorar a participação comunitária','Favorecer apenas conhecidos'],0]},
+ {t:'2 • PARTICIPAÇÃO E CONTROLE SOCIAL',icon:'👥',items:[[17,'👥','Conferência','g'],[30,'❌','Decisão sem participação','b'],[43,'🤝','Conselho','g'],[57,'📣','Controle Social','g'],[70,'⚠️','Tráfico de influência','b'],[83,'🗳️','Participação Social','t']],q:['Qual instrumento permite participação e acompanhamento social permanente?',['Somente eventos','Conselho de Política Cultural','Publicidade institucional'],1]},
+ {t:'3 • FUNDO E FINANCIAMENTO',icon:'💰',items:[[17,'💰','Recursos','g'],[30,'📊','Indicadores','g'],[43,'🛑','Favorecimento','b'],[56,'🎯','Metas','g'],[69,'🗄️','Sem planejamento','b'],[83,'🏦','Fundo de Cultura','t']],q:['Como recursos públicos da cultura devem ser aplicados?',['Com planejamento, regras públicas e acompanhamento','Por amizade','Sem critérios públicos'],0]},
+ {t:'4 • CULTURA VIVA: A REDE DO TERRITÓRIO',icon:'🥁',items:[[17,'🏠','Ponto de Cultura','g'],[29,'🥁','Mestres e Mestras','g'],[42,'🕸️','Teias e Redes','g'],[56,'🚧','Isolamento','b'],[69,'🎤','Sarau','g'],[83,'🤝','Rede Cultura Viva','t']],q:['Nesta missão, o território cultural deve ser visto como...',['Lugar sem produção cultural','Rede viva de pessoas, saberes e iniciativas','Apenas espaço administrativo'],1]},
+ {t:'5 • DIREITOS CULTURAIS: PATRIMÔNIO, LIVRO E MEMÓRIA',icon:'📚',items:[[17,'📸','Memória','g'],[29,'📚','Livro e Leitura','g'],[42,'🏘️','Patrimônio','g'],[56,'🗑️','Apagamento','b'],[69,'🗣️','História Oral','g'],[83,'🎭','Diversidade','t']],q:['Patrimônio cultural é apenas prédio antigo?',['Sim','Não. Também envolve bens materiais e imateriais, lugares, celebrações e saberes.','Somente museus'],1]},
+ {t:'6 • PLANO MUNICIPAL DE CULTURA',icon:'🏛️',items:[[16,'📊','Diagnóstico','g'],[28,'👥','Participação','g'],[40,'🎯','Metas','g'],[53,'💰','Orçamento','g'],[66,'🗄️','Plano engavetado','b'],[79,'🔎','Acompanhamento','g'],[87,'📜','Plano Municipal','t']],q:['A aprovação do Plano encerra a participação da sociedade?',['Sim. Agora somente o governo acompanha.','Não. Planejamento, acompanhamento e participação continuam durante a execução.','Sim. O Plano não precisa mais ser avaliado.'],1]}
+];
+let st={char:0,phase:0,score:0,medals:0},x=7,life=3,on=false,jumping=false,asked=false,used=new Set(),running=false;
+let comboCount=0,lastGood=0,velocity=0;
+function particles(symbol='⭐',count=7){
+ const box=$('#particles'),h=$('#hero').getBoundingClientRect(),stg=$('#stage').getBoundingClientRect();
+ for(let i=0;i<count;i++){let p=document.createElement('span');p.className='particle';p.textContent=symbol;
+ p.style.left=(h.left-stg.left+h.width/2)+'px';p.style.top=(h.top-stg.top+h.height/2)+'px';
+ p.style.setProperty('--dx',((Math.random()-.5)*170)+'px');p.style.setProperty('--dy',(-35-Math.random()*115)+'px');
+ box.appendChild(p);setTimeout(()=>p.remove(),760)}
+}
+function impact(good=true){
+ const stg=$('#stage');stg.classList.remove('screenflash','shake');void stg.offsetWidth;
+ stg.classList.add(good?'screenflash':'shake');setTimeout(()=>stg.classList.remove('screenflash','shake'),280)
+}
+function combo(){
+ let now=Date.now();comboCount=(now-lastGood<2200)?comboCount+1:1;lastGood=now;
+ if(comboCount>1){let c=$('#combo');c.textContent='COMBO x'+comboCount+' 🔥';c.classList.remove('show');void c.offsetWidth;c.classList.add('show');
+ st.score+=comboCount*20}
+}
+
+function screen(id){['home','select','game','end'].forEach(a=>$('#'+a).classList.add('hidden'));$('#'+id).classList.remove('hidden')}
+function save(){localStorage.setItem('missaoSNC3',JSON.stringify(st))}
+function load(){try{let a=JSON.parse(localStorage.getItem('missaoSNC3'));if(a)st=a}catch(e){}}
+function charUI(){$('#chars').innerHTML='';chars.forEach((a,i)=>{let b=document.createElement('button');b.className='char '+(i===st.char?'sel':'');b.innerHTML=`<div class="avatar">${a[2]}</div><b>${a[0]}</b><small>${a[1]}</small>`;b.onclick=()=>{st.char=i;charUI()};$('#chars').appendChild(b)})}
+function worlds(){$('#worlds').innerHTML='';phases.forEach((p,i)=>{let d=document.createElement('div');d.className='world '+(i<st.phase?'done ':'')+(i===st.phase?'now':'');d.innerHTML=`${i<st.phase?'🏅':p.icon}<br>${p.t.split(' • ')[1].split(':')[0]}`;$('#worlds').appendChild(d)})}
+function build(){$('#objects').innerHTML='';phases[st.phase].items.forEach((a,i)=>{let e=document.createElement('div');e.className='obj '+(a[3]==='b'?'bad':'good');e.dataset.i=i;e.style.left=a[0]+'%';e.textContent=a[1];$('#objects').appendChild(e);let t=document.createElement('div');t.className='tag';t.dataset.i=i;t.style.left=a[0]+'%';t.textContent=a[2];$('#objects').appendChild(t)});let f=document.createElement('div');f.className='finish';f.style.left='94%';f.textContent='🏁';$('#objects').appendChild(f)}
+function flash(t){$('#pop').textContent=t;$('#pop').classList.remove('hidden');setTimeout(()=>$('#pop').classList.add('hidden'),700)}
+function render(){let shift=Math.max(0,(x-35)*2.1);$('#skyline').style.transform=`translateX(${-shift*.25}%)`;$('#houses').style.transform=`translateX(${-shift*.5}%)`;$('#hero').textContent=chars[st.char][2];$('#life').textContent=life;$('#score').textContent=st.score;$('#medals').textContent=st.medals;$('#bar').style.width=Math.min(100,x/94*100)+'%';document.querySelectorAll('.obj,.tag,.finish').forEach(el=>{let base=parseFloat(el.style.left)||0;el.style.transform=(el.classList.contains('tag')?'translateX(-40px) ':'')+`translateX(${-shift}vw)`})}
+function startPhase(){if(st.phase>=6){finishGame();return}x=7;life=3;on=true;jumping=false;asked=false;used.clear();$('#hero').className='hero run';$('#quiz').classList.add('hidden');$('#phase').textContent=phases[st.phase].t;$('#msg').textContent='🏁 Corra, colete ferramentas de cidadania e pule os obstáculos.';worlds();build();render();screen('game');$('#stage').focus()}
+function move(n){if(!on)return;running=true;velocity=Math.min(1.8,velocity+.18);let boost=Math.abs(n)*(1+velocity*.22);x=Math.max(7,Math.min(95,x+(n<0?-boost:boost)));$('#stage').classList.toggle('fast',velocity>1);clearTimeout(move._t);move._t=setTimeout(()=>{velocity=0;$('#stage').classList.remove('fast')},180);hit();render()}
+function jump(){if(!on||jumping)return;jumping=true;$('#hero').classList.add('jump');particles('💨',4);sfx('jump');setTimeout(()=>{$('#hero').classList.remove('jump');jumping=false;hit()},520)}
+function hit(){let p=phases[st.phase];p.items.forEach((a,i)=>{if(used.has(i)||Math.abs(x-a[0])>3.2)return;used.add(i);document.querySelectorAll(`[data-i="${i}"]`).forEach(e=>e.classList.add('done'));if(a[3]==='b'){if(jumping){st.score+=50;flash('SUPERADO +50 ⭐');particles('✨',6);combo();impact(true);sfx('good')}else{life--;comboCount=0;x=Math.max(7,x-6);flash('OBSTÁCULO ❤️ -1');particles('💥',7);impact(false);sfx('bad');$('#hero').classList.add('hurt');setTimeout(()=>$('#hero').classList.remove('hurt'),500)}$('#msg').textContent='⚠️ '+a[2]}else{let pts=a[3]==='t'?250:100;st.score+=pts;combo();flash('+'+pts+' ⭐');particles('⭐',7);impact(true);sfx('coin');$('#msg').textContent='✅ '+a[2]+' fortaleceu a missão.'}});
+ if(life<=0){on=false;$('#msg').textContent='GAME OVER — a fase vai reiniciar.';setTimeout(startPhase,1000);return}
+ if(x>=52&&!asked){asked=true;on=false;showQuiz()}
+ if(x>=93&&on)finishPhase()}
+function showQuiz(){let q=phases[st.phase].q;$('#qtext').textContent=q[0];$('#answers').innerHTML='';q[1].forEach((txt,i)=>{let b=document.createElement('button');b.className='btn answer';b.textContent=String.fromCharCode(65+i)+') '+txt;b.onclick=()=>{if(i===q[2]){st.score+=300;flash('RESPOSTA CERTA +300 ⭐');sfx('good');$('#msg').textContent='✅ Conhecimento desbloqueou o caminho.'}else{sfx('bad');$('#msg').textContent='📚 A missão continua. Revise o conceito durante o percurso.'}$('#quiz').classList.add('hidden');on=true;render()};$('#answers').appendChild(b)});$('#quiz').classList.remove('hidden')}
+function finishPhase(){on=false;st.score+=500;st.medals=Math.max(st.medals,st.phase+1);flash('INSÍGNIA CONQUISTADA! 🏅');particles('🏅',12);impact(true);sfx('medal');save();setTimeout(()=>{st.phase++;save();st.phase>=6?finishGame():startPhase()},1200)}
+function finishGame(){$('#finalScore').textContent=st.score;screen('end')}
+$('#new').onclick=()=>{st={char:0,phase:0,score:0,medals:0};charUI();screen('select')};$('#choose').onclick=()=>{charUI();screen('select')};$('#cont').onclick=()=>{load();charUI();st.phase>=6?finishGame():startPhase()};$('#go').onclick=()=>{save();startPhase()};$('#left').onclick=()=>move(-3.8);$('#right').onclick=()=>move(3.8);$('#jump').onclick=jump;$('#menu').onclick=()=>{save();screen('home')};$('#again').onclick=()=>{localStorage.removeItem('missaoSNC3');st={char:0,phase:0,score:0,medals:0};screen('home')};$('#how').onclick=()=>$('#howtxt').classList.toggle('hidden');
+let hold=null;function begin(dir){clearInterval(hold);move(dir);hold=setInterval(()=>move(dir),90)}function stop(){clearInterval(hold);hold=null}
+['left','right'].forEach(id=>{let el=$('#'+id),dir=id==='left'?-2.2:2.2;el.addEventListener('pointerdown',e=>{e.preventDefault();begin(dir)});el.addEventListener('pointerup',stop);el.addEventListener('pointercancel',stop);el.addEventListener('pointerleave',stop)});
+document.addEventListener('keydown',e=>{if($('#game').classList.contains('hidden'))return;if(['ArrowLeft','ArrowRight','ArrowUp',' '].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft')move(-2.7);if(e.key==='ArrowRight')move(2.7);if(e.key==='ArrowUp'||e.key===' ')jump()});
+let audioCtx=null,soundOn=true,music=null,step=0;function ensureAudio(){if(!audioCtx)audioCtx=new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume()}function tone(f,d=.08,type='sine',v=.03,delay=0){if(!soundOn)return;ensureAudio();let o=audioCtx.createOscillator(),g=audioCtx.createGain(),t=audioCtx.currentTime+delay;o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(audioCtx.destination);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.start(t);o.stop(t+d)}function sfx(k){if(k==='coin'){tone(880,.06);tone(1320,.09,'sine',.03,.06)}if(k==='good'){[523,659,784].forEach((n,i)=>tone(n,.09,'triangle',.03,i*.07))}if(k==='bad'){tone(170,.15,'sawtooth',.03)}if(k==='jump'){tone(330,.05,'square',.02);tone(650,.1,'square',.018,.04)}if(k==='medal'){[523,659,784,1047].forEach((n,i)=>tone(n,.14,'triangle',.035,i*.08))}}function musicStart(){if(music||!soundOn)return;ensureAudio();let ns=[196,247,294,330,294,247,220,262];music=setInterval(()=>tone(ns[step++%ns.length],.16,'triangle',.009),330)}$('#sound').onclick=()=>{soundOn=!soundOn;$('#sound').textContent=soundOn?'🔊 SOM':'🔇 SOM';if(soundOn)musicStart();else{clearInterval(music);music=null}};document.addEventListener('pointerdown',musicStart,{once:true});
+load();$('#cont').disabled=!localStorage.getItem('missaoSNC3');charUI();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+</script>
+</body></html>
